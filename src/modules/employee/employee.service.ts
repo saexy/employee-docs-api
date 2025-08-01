@@ -16,6 +16,10 @@ export class EmployeeService {
     return this.employeeRepository.find();
   }
 
+  findOne(id: string): Promise<Employee | null> {
+    return this.employeeRepository.findOne({ where: { id } });
+  }
+
   create(data: CreateEmployeeDto): Promise<Employee> {
     const employee = this.employeeRepository.create(data);
 

@@ -11,6 +11,14 @@ export class DocumentTypeService {
     private documentTypeRepository: Repository<DocumentType>,
   ) {}
 
+  list(): Promise<DocumentType[]> {
+    return this.documentTypeRepository.find();
+  }
+
+  findOne(id: string): Promise<DocumentType | null> {
+    return this.documentTypeRepository.findOne({ where: { id } });
+  }
+
   async create(data: CreateDocumentTypeDto): Promise<DocumentType> {
     const existing = await this.documentTypeRepository.findOneBy({
       name: ILike(data.name),
@@ -23,9 +31,5 @@ export class DocumentTypeService {
     const documentType = this.documentTypeRepository.create(data);
 
     return this.documentTypeRepository.save(documentType);
-  }
-
-  list(): Promise<DocumentType[]> {
-    return this.documentTypeRepository.find();
   }
 }

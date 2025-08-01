@@ -15,7 +15,7 @@ export const dataSource = new DataSource({
   database: process.env.DATABASE_NAME,
   entities: [DocumentType, Employee, Document],
   migrations: [__dirname + '/../migrations/*.ts'],
-  ssl: (process.env.PORT ?? 3000 === 3000) ? false : true,
+  ssl: process.env.ENV === 'dev' ? false : true,
   synchronize: false,
   migrationsRun: true,
 });

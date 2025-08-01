@@ -17,7 +17,7 @@ export class DocumentTypeService {
     });
 
     if (existing) {
-      throw new ConflictException('Esse tipo de documento já existe');
+      throw new ConflictException('Esse tipo de documento já existe.');
     }
 
     const documentType = this.documentTypeRepository.create(data);
@@ -25,7 +25,7 @@ export class DocumentTypeService {
     return this.documentTypeRepository.save(documentType);
   }
 
-  async list(): Promise<DocumentType[]> {
+  list(): Promise<DocumentType[]> {
     return this.documentTypeRepository.find();
   }
 }

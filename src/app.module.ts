@@ -4,7 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DocumentTypeModule } from './modules/document-type/document-type.module';
 import { EmployeeModule } from './modules/employee/employee.module';
 import { DocumentModule } from './modules/document/document.module';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     ThrottlerModule.forRoot({
       throttlers: [
         {
-          ttl: 60000,
+          ttl: 10000,
           limit: 10,
         },
       ],
@@ -20,6 +21,12 @@ import { ThrottlerModule } from '@nestjs/throttler';
     DocumentTypeModule,
     EmployeeModule,
     DocumentModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}

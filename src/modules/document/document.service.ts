@@ -131,7 +131,6 @@ export class DocumentService {
       .where('document.status = :status', { status: 'PENDING' });
 
     if (employeeId) {
-      console.log('ta caindo aqui');
       qb.andWhere('document.employee_id = :employeeId', { employeeId });
     }
 
